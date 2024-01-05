@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+import Sidebar from "./Components/Sidebar";
+import "./app.css";
+import Form from "./Components/Form";
+import PostListProvider from "./Store/Posts-Store";
+import CardList from "./Components/CardList";
 
 function App() {
+  const [selectedTab , setSelectedTab] = useState("Home");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PostListProvider>
+      <div className="app-container">
+      <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
+      <div className="content">
+      <Header />
+      {selectedTab === "Home" ? <CardList/>: <Form/>}
+      <Footer />  
+      </div>
+      </div>
+    </PostListProvider>
   );
 }
 
